@@ -27,6 +27,11 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 define( 'RTR_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ) );
 
 /**
+ * Provides the metabox on pages.
+ */
+include( RTR_PLUGIN_DIRECTORY . '/metabox.php' );
+
+/**
  * Provide settings to user
  */
 include( RTR_PLUGIN_DIRECTORY . '/settings.php' );
