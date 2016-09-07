@@ -92,7 +92,7 @@ function rtr_get_option( $option_name ) {
 		'rtr_setting_redirect_destination' => get_home_url()
 	);
 
-	return get_option( $option_name, $default );
+	return get_option( $option_name, $default )[ $option_name ];
 }
 
 /**
