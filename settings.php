@@ -57,7 +57,7 @@ function rtr_settings_init() {
 	);
 
 	// Add settings
-	register_setting( 'rtr-settings', 'rtr-setting-redirect-destination' );
+	register_setting( 'rtr-settings', 'rtr-setting-redirect-destination', 'rtr_setting_redirect_destination_validation' );
 	add_settings_field(
 		'rtr-setting-redirect-destination',
 		'Page to redirect to',
@@ -68,6 +68,32 @@ function rtr_settings_init() {
 }
 
 add_action( 'admin_init', 'rtr_settings_init' );
+
+// ------------------------------------------------------------------
+// Default and settings' validation functions
+// ------------------------------------------------------------------
+
+/**
+ * Fetch option or default value.
+ *
+ * Uses {@see get_option()} to fetch the provided option from the database.
+ * If no value is set in the database, a default that is defined inside this function
+ * is returned instead.
+ *
+ * @see get_option()
+ * @since 0.0.0
+ *
+ * @param string $option_name The name of the option to fetch.
+ *
+ * @return mixed Depends on the option.
+ */
+function rtr_get_option( $option_name ) {
+	$default = array(
+		'rtr-setting-redirect-destination' => get_home_url()
+	);
+
+	return get_option( $option_name, $default );
+}
 
 // ------------------------------------------------------------------
 // Renderer functions
@@ -111,7 +137,7 @@ function rtr_setting_section_renderer() {
  * @since 0.0.0
  */
 function rtr_setting_redirect_destination_renderer() {
-	$setting = esc_attr( get_option( 'rtr-setting-redirect-destination' ) );
+	$setting = esc_attr( rtr_get_option( 'rtr-setting-redirect-destination' ) );
 	echo "<input name='rtr-setting-redirect-destination' id='rtr-setting-redirect-destination' type='url' value='$setting' />
  			If redirection is enabled, this is the page that will be redirected to.";
 }
