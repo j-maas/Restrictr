@@ -51,7 +51,7 @@ function rtr_settings_init() {
 	// Add section
 	add_settings_section(
 		'rtr_settings_section',
-		'Settings',
+		'Restrictr Settings',
 		'rtr_setting_section_renderer',
 		'rtr_menu'
 	);
@@ -60,7 +60,7 @@ function rtr_settings_init() {
 	register_setting( 'rtr_settings', 'rtr_setting_redirect_destination', 'rtr_setting_redirect_destination_validation' );
 	add_settings_field(
 		'rtr_setting_redirect_destination',
-		'Page to redirect to',
+		'Redirect to (URL)',
 		'rtr_setting_redirect_destination_renderer',
 		'rtr_menu',
 		'rtr_settings_section'
@@ -166,6 +166,7 @@ function rtr_setting_section_renderer() {
  */
 function rtr_setting_redirect_destination_renderer() {
 	$setting = esc_attr( rtr_get_option( 'rtr_setting_redirect_destination' ) );
-	echo "<input name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination' type='url' value='$setting' />
- 			If redirection is enabled, this is the page that will be redirected to.";
+	echo "<input type='url' name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination'
+ 				value='$setting' class='regular-text code' />
+ 			<p class='description'>If redirection is enabled, this is the page that will be redirected to.</p>";
 }
