@@ -95,6 +95,32 @@ function rtr_get_option( $option_name ) {
 	return get_option( $option_name, $default );
 }
 
+/**
+ * Validates the redirect destination setting.
+ *
+ * Throws a setting error if the input value is not a valid URL.
+ *
+ * @param string $input The user's input.
+ *
+ * @return string The user's input if valid, or else the setting's previous value.
+ */
+function rtr_setting_redirect_destination_validation( $input ) {
+	$destination = $input;
+	$output      = rtr_get_option( 'rtr-setting-redirect-destination' );
+
+	if ( filter_var( $destination, FILTER_VALIDATE_URL ) === false ) {
+		add_settings_error(
+			'rtr-setting-redirect-destination',
+			'rtr-error-invalid-url',
+			'The entered URL was not valid. The previous URL has been re-established.'
+		);
+	} else {
+		$output = $destination;
+	}
+
+	return $output;
+}
+
 // ------------------------------------------------------------------
 // Renderer functions
 // ------------------------------------------------------------------
