@@ -29,9 +29,14 @@ define( 'RTR_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ) );
 /**
  * Provides the metabox on pages.
  */
-include( RTR_PLUGIN_DIRECTORY . '/metabox.php' );
+include( RTR_PLUGIN_DIRECTORY . 'metabox.php' );
 
 /**
- * Provide settings to user
+ * Provides settings to user.
  */
-include( RTR_PLUGIN_DIRECTORY . '/settings.php' );
+include( RTR_PLUGIN_DIRECTORY . 'settings.php' );
+
+/**
+ * Provides redirection functionality.
+ */
+include( RTR_PLUGIN_DIRECTORY . 'redirection.php' );
