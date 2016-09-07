@@ -15,7 +15,7 @@
  * @since 0.0.0
  * @var string RTR_OPTION_GROUP Name of this plugin's option group.
  */
-define( 'RTR_OPTION_GROUP', 'rtr-option-group' );
+define( 'RTR_OPTION_GROUP', 'rtr_option_group' );
 
 // ------------------------------------------------------------------
 // Register menu and settings
@@ -33,7 +33,7 @@ function rtr_add_menu() {
 		'Restrictr Settings',
 		'Restrictr',
 		'manage_options',
-		'rtr-menu',
+		'rtr_menu',
 		'rtr_settings_page_renderer'
 	);
 }
@@ -50,20 +50,20 @@ add_action( 'admin_menu', 'rtr_add_menu' );
 function rtr_settings_init() {
 	// Add section
 	add_settings_section(
-		'rtr-settings-section',
+		'rtr_settings_section',
 		'Settings',
 		'rtr_setting_section_renderer',
-		'rtr-menu'
+		'rtr_menu'
 	);
 
 	// Add settings
-	register_setting( 'rtr-settings', 'rtr-setting-redirect-destination', 'rtr_setting_redirect_destination_validation' );
+	register_setting( 'rtr_settings', 'rtr_setting_redirect_destination', 'rtr_setting_redirect_destination_validation' );
 	add_settings_field(
-		'rtr-setting-redirect-destination',
+		'rtr_setting_redirect_destination',
 		'Page to redirect to',
 		'rtr_setting_redirect_destination_renderer',
-		'rtr-menu',
-		'rtr-settings-section'
+		'rtr_menu',
+		'rtr_settings_section'
 	);
 }
 
@@ -89,7 +89,7 @@ add_action( 'admin_init', 'rtr_settings_init' );
  */
 function rtr_get_option( $option_name ) {
 	$default = array(
-		'rtr-setting-redirect-destination' => get_home_url()
+		'rtr_setting_redirect_destination' => get_home_url()
 	);
 
 	return get_option( $option_name, $default );
@@ -100,18 +100,20 @@ function rtr_get_option( $option_name ) {
  *
  * Throws a setting error if the input value is not a valid URL.
  *
+ * @since 0.0.0
+ *
  * @param string $input The user's input.
  *
  * @return string The user's input if valid, or else the setting's previous value.
  */
 function rtr_setting_redirect_destination_validation( $input ) {
 	$destination = $input;
-	$output      = rtr_get_option( 'rtr-setting-redirect-destination' );
+	$output      = rtr_get_option( 'rtr_setting_redirect_destination' );
 
 	if ( filter_var( $destination, FILTER_VALIDATE_URL ) === false ) {
 		add_settings_error(
-			'rtr-setting-redirect-destination',
-			'rtr-error-invalid-url',
+			'rtr_setting_redirect_destination',
+			'rtr_error_invalid_url',
 			'The entered URL was not valid. The previous URL has been re-established.'
 		);
 	} else {
@@ -137,8 +139,8 @@ function rtr_settings_page_renderer() {
 	<div class="wrap">
 		<form action="options.php" method="POST">
 			<!-- Use Settings API to render settings -->
-			<?php settings_fields( 'rtr-settings' ); ?>
-			<?php do_settings_sections( 'rtr-menu' ); ?>
+			<?php settings_fields( 'rtr_settings' ); ?>
+			<?php do_settings_sections( 'rtr_menu' ); ?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
@@ -163,7 +165,7 @@ function rtr_setting_section_renderer() {
  * @since 0.0.0
  */
 function rtr_setting_redirect_destination_renderer() {
-	$setting = esc_attr( rtr_get_option( 'rtr-setting-redirect-destination' ) );
-	echo "<input name='rtr-setting-redirect-destination' id='rtr-setting-redirect-destination' type='url' value='$setting' />
+	$setting = esc_attr( rtr_get_option( 'rtr_setting_redirect_destination' ) );
+	echo "<input name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination' type='url' value='$setting' />
  			If redirection is enabled, this is the page that will be redirected to.";
 }
