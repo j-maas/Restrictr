@@ -88,11 +88,15 @@ add_action( 'admin_init', 'rtr_settings_init' );
  * @return mixed Depends on the option.
  */
 function rtr_get_option( $option_name ) {
-	$default = array(
-		'rtr_setting_redirect_destination' => get_home_url()
-	);
+	// Provide defaults
+	$default = null;
+	switch ( $option_name ) {
+		case 'rtr_setting_redirect_destination':
+			$default = get_home_url();
+			break;
+	}
 
-	return get_option( $option_name, $default )[ $option_name ];
+	return get_option( $option_name, $default );
 }
 
 /**
@@ -168,5 +172,5 @@ function rtr_setting_redirect_destination_renderer() {
 	$setting = esc_attr( rtr_get_option( 'rtr_setting_redirect_destination' ) );
 	echo "<input type='url' name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination'
  				value='$setting' class='regular-text code' />
- 			<p class='description'>If redirection is enabled, this is the page that will be redirected to.</p>";
+ 			<p class='description'>If redirection is enabled on a page, this is the page that will be redirected to.</p>";
 }
