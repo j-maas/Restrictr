@@ -172,5 +172,5 @@ function rtr_setting_redirect_destination_renderer() {
 	$setting = esc_attr( rtr_get_option( 'rtr_setting_redirect_destination' ) );
 	echo "<input type='url' name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination'
  				value='$setting' class='regular-text code' />
- 			<p class='description'>If redirection is enabled on a page, this is the page that will be redirected to.</p>";
+ 			<p class='description'>If redirection is enabled on a page, it will be redirected to this URL.</p>";
 }
