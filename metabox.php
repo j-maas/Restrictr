@@ -37,14 +37,17 @@ add_action( 'add_meta_boxes', 'rtr_add_metabox' );
  * @param array $post The current post, provided by WordPress.
  */
 function rtr_metabox_renderer( $post ) {
-	$hide_page = get_post_meta( $post->ID, 'rtr_metabox_hide_page', true );
+	$redirect_page        = get_post_meta( $post->ID, 'rtr_metabox_redirect_page', true );
+	$redirect_destination = rtr_get_option( 'rtr_setting_redirect_destination' );
 
 	wp_nonce_field( 'rtr_metabox', 'rtr_metabox_nonce' );
 	?>
 	<p>
-		<input type="checkbox" id="rtr_metabox_hide_page" name="rtr_metabox_hide_page"
-		       value="yes" <?php checked( $hide_page, 'yes' ); ?> />
-		<label for="rtr_meta_hide_page">Hide this page</label>
+		<input type="checkbox" id="rtr_metabox_redirect_page" name="rtr_metabox_redirect_page"
+		       value="yes" <?php checked( $redirect_page, 'yes' ); ?> />
+		<label for="rtr_meta_redirect_page">Redirect this page
+			(to <a href="<?php echo $redirect_destination ?>"
+			       style="word-wrap: break-word"><?php echo $redirect_destination ?></a>)</label>
 	</p>
 	<?php
 }
@@ -73,10 +76,10 @@ function rtr_metabox_save( $post_id ) {
 	}
 
 	// Update metabox data
-	if ( isset( $_POST['rtr_metabox_hide_page'] ) ) {
-		update_post_meta( $post_id, 'rtr_metabox_hide_page', 'yes' );
+	if ( isset( $_POST['rtr_metabox_redirect_page'] ) ) {
+		update_post_meta( $post_id, 'rtr_metabox_redirect_page', 'yes' );
 	} else {
-		update_post_meta( $post_id, 'rtr_metabox_hide_page', '' );
+		update_post_meta( $post_id, 'rtr_metabox_redirect_page', '' );
 	}
 }
 
