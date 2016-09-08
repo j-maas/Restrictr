@@ -12,6 +12,8 @@
 /**
  * Registers the metabox.
  *
+ * Adds a metabox to all post types.
+ *
  * @since 0.0.0
  */
 function rtr_add_metabox() {
@@ -19,7 +21,7 @@ function rtr_add_metabox() {
 		'rtr_metabox',
 		'Restrictr Settings',
 		'rtr_metabox_renderer',
-		'page',
+		'',
 		'normal',
 		'default'
 	);
