@@ -26,26 +26,42 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 define( 'RTR_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ) );
 
+// ------------------------------------------------------------------
+// Include admin screen
+// ------------------------------------------------------------------
+/**
+ * Path to admin directory.
+ */
+define( 'RTR_ADMIN_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'admin/' );
+
 /**
  * Provides the metabox on pages.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_PLUGIN_DIRECTORY . 'metabox.php' );
+include( RTR_ADMIN_DIRECTORY . 'metabox.php' );
 
 /**
  * Provides settings to user.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_PLUGIN_DIRECTORY . 'settings.php' );
+include( RTR_ADMIN_DIRECTORY . 'settings.php' );
+
+// ------------------------------------------------------------------
+// Include functionality
+// ------------------------------------------------------------------
+/**
+ * Path to functionality directory.
+ */
+define( 'RTR_FUNCTIONALITY_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'functionality/' );
 
 /**
  * Provides redirection functionality.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_PLUGIN_DIRECTORY . 'redirection.php' );
+include( RTR_FUNCTIONALITY_DIRECTORY . 'redirection.php' );
 
 /**
  * Provides hiding functionality in menus.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_PLUGIN_DIRECTORY . 'hiding.php' );
+include( RTR_FUNCTIONALITY_DIRECTORY . 'hiding.php' );
