@@ -57,11 +57,29 @@ function rtr_settings_init() {
 	);
 
 	// Add settings
+	register_setting( 'rtr_settings', 'rtr_setting_redirect_enabled' );
+	add_settings_field(
+		'rtr_setting_redirect_enabled',
+		'Enable redirection',
+		'rtr_setting_redirect_enabled_renderer',
+		'rtr_menu',
+		'rtr_settings_section'
+	);
+
 	register_setting( 'rtr_settings', 'rtr_setting_redirect_destination', 'rtr_setting_redirect_destination_validation' );
 	add_settings_field(
 		'rtr_setting_redirect_destination',
 		'Redirect to (URL)',
 		'rtr_setting_redirect_destination_renderer',
+		'rtr_menu',
+		'rtr_settings_section'
+	);
+
+	register_setting( 'rtr_settings', 'rtr_setting_hiding_enabled' );
+	add_settings_field(
+		'rtr_setting_hiding_enabled',
+		'Enable hiding',
+		'rtr_setting_hiding_enabled_renderer',
 		'rtr_menu',
 		'rtr_settings_section'
 	);
@@ -91,8 +109,16 @@ function rtr_get_option( $option_name ) {
 	// Provide defaults
 	$default = null;
 	switch ( $option_name ) {
+		case 'rtr_setting_redirect_enabled':
+			$default = 1;
+			break;
+
 		case 'rtr_setting_redirect_destination':
 			$default = get_home_url();
+			break;
+
+		case 'rtr_setting_hiding_enabled':
+			$default = 1;
 			break;
 	}
 
@@ -163,6 +189,36 @@ function rtr_setting_section_renderer() {
 }
 
 /**
+ * Checkbox setting renderer.
+ *
+ * @since 0.2.0
+ *
+ * @param string $setting_name The name of the corresponding setting.
+ * @param string $description Optional. The description to output as a label for the checkbox.
+ */
+function rtr_setting_checkbox_renderer( $setting_name, $description = '' ) {
+	$setting = rtr_get_option( $setting_name );
+
+	echo "<input type='checkbox' name='$setting_name' id='$setting_name'
+	       value='1' " . checked( $setting, 1, false ) . ' />';
+
+	if ( $description ) {
+		echo "<label for='$setting_name' class='description'>$description</label>";
+	}
+}
+
+/**
+ * Redirect enable setting's renderer.
+ *
+ * Renders a checkbox for the redirect enable setting.
+ *
+ * @since 0.2.0
+ */
+function rtr_setting_redirect_enabled_renderer() {
+	rtr_setting_checkbox_renderer( 'rtr_setting_redirect_enabled', 'If disabled, no page will be redirected.' );
+}
+
+/**
  * Redirect destination setting's renderer.
  *
  * Renders an URL `input` for the redirect destination setting.
@@ -174,4 +230,15 @@ function rtr_setting_redirect_destination_renderer() {
 	echo "<input type='url' name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination'
  				value='$setting' class='regular-text code' />
  			<p class='description'>If redirection is enabled on a page, it will be redirected to this URL.</p>";
+}
+
+/**
+ * Hiding enable setting's renderer.
+ *
+ * Renders a checkbox for the hiding enable setting.
+ *
+ * @since 0.2.0
+ */
+function rtr_setting_hiding_enabled_renderer() {
+	rtr_setting_checkbox_renderer( 'rtr_setting_hiding_enabled', 'If disabled, no page will be hidden.' );
 }

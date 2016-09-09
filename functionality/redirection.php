@@ -29,4 +29,6 @@ function rtr_redirect() {
 	}
 }
 
-add_action( 'template_redirect', 'rtr_redirect' );
+if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) { // only redirect, if setting enabled
+	add_action( 'template_redirect', 'rtr_redirect' );
+}
