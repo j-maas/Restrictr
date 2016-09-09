@@ -9,6 +9,17 @@
  * @since 0.1.0
  */
 
+/**
+ * Hides menu items that point to hidden posts.
+ *
+ * Only hides posts if {@see url_to_postid()} returns a post ID.
+ *
+ * @since 0.1.0
+ *
+ * @param array $items The menu items, provided by WordPress.
+ *
+ * @return mixed
+ */
 function rtr_hide_from_menu( $items ) {
 	// Contains IDs of all hidden menu items
 	$hidden_posts = array();
@@ -34,6 +45,6 @@ function rtr_hide_from_menu( $items ) {
 	return $items;
 }
 
-if ( ! is_admin() ) {
+if ( ! is_admin() ) { // only filter menus on frontend
 	add_filter( 'wp_get_nav_menu_items', 'rtr_hide_from_menu' );
 }
