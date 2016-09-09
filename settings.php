@@ -140,6 +140,7 @@ function rtr_setting_redirect_destination_validation( $input ) {
  */
 function rtr_settings_page_renderer() {
 	?>
+	<!--suppress HtmlUnknownTarget -->
 	<div class="wrap">
 		<form action="options.php" method="POST">
 			<!-- Use Settings API to render settings -->
