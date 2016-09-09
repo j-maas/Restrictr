@@ -50,7 +50,7 @@ function rtr_metabox_renderer( $post ) {
 	<p>
 		<input type="checkbox" id="rtr_metabox_redirect_page" name="rtr_metabox_redirect_page"
 		       value="yes" <?php checked( $redirect_page, 'yes' ); ?> />
-		<label for="rtr_meta_redirect_page">Redirect this page
+		<label for="rtr_metabox_redirect_page">Redirect this page
 			(to <a href="<?php echo $redirect_destination ?>"
 			       style="word-wrap: break-word"><?php echo $redirect_destination ?></a>)</label>
 	</p>
@@ -59,7 +59,7 @@ function rtr_metabox_renderer( $post ) {
 	<p>
 		<input type="checkbox" id="rtr_metabox_hide_page" name="rtr_metabox_hide_page"
 		       value="yes" <?php checked( $hide_page, 'yes' ); ?> />
-		<label for="rtr_metabox_hide_page">Hide this page and subpages from menues</label>
+		<label for="rtr_metabox_hide_page">Hide this page and subpages from menus</label>
 
 	</p>
 	<?php
