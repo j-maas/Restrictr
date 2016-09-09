@@ -43,3 +43,9 @@ include( RTR_PLUGIN_DIRECTORY . 'settings.php' );
  */
 /** @noinspection PhpIncludeInspection */
 include( RTR_PLUGIN_DIRECTORY . 'redirection.php' );
+
+/**
+ * Provides hiding functionality in menus.
+ */
+/** @noinspection PhpIncludeInspection */
+include( RTR_PLUGIN_DIRECTORY . 'hiding.php' );
