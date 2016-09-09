@@ -14,6 +14,7 @@ function rtr_hide_from_menu( $items ) {
 	$hidden_posts = array();
 
 	foreach ( $items as $key => $menu_item ) {
+		// Improvement: https://github.com/Giuseppe-Mazzapica/Url_To_Query
 		$referenced_page_id = url_to_postid( $menu_item->url );
 
 		// Skip this $menu_item if possible
