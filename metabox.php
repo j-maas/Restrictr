@@ -83,6 +83,12 @@ function rtr_metabox_save( $post_id ) {
 	} else {
 		update_post_meta( $post_id, 'rtr_metabox_redirect_page', '' );
 	}
+
+	if ( isset( $_POST['rtr_metabox_hide_page'] ) ) {
+		update_post_meta( $post_id, 'rtr_metabox_hide_page', 'yes' );
+	} else {
+		update_post_meta( $post_id, 'rtr_metabox_hide_page', '' );
+	}
 }
 
 add_action( 'save_post', 'rtr_metabox_save' );
