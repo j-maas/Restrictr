@@ -42,14 +42,25 @@ function rtr_metabox_renderer( $post ) {
 	$redirect_page        = get_post_meta( $post->ID, 'rtr_metabox_redirect_page', true );
 	$redirect_destination = rtr_get_option( 'rtr_setting_redirect_destination' );
 
+	$hide_page = get_post_meta( $post->ID, 'rtr_metabox_hide_page', true );
+
 	wp_nonce_field( 'rtr_metabox', 'rtr_metabox_nonce' );
 	?>
+	<!-- Redirect checkbox -->
 	<p>
 		<input type="checkbox" id="rtr_metabox_redirect_page" name="rtr_metabox_redirect_page"
 		       value="yes" <?php checked( $redirect_page, 'yes' ); ?> />
 		<label for="rtr_meta_redirect_page">Redirect this page
 			(to <a href="<?php echo $redirect_destination ?>"
 			       style="word-wrap: break-word"><?php echo $redirect_destination ?></a>)</label>
+	</p>
+
+	<!-- Hide checkbox -->
+	<p>
+		<input type="checkbox" id="rtr_metabox_hide_page" name="rtr_metabox_hide_page"
+		       value="yes" <?php checked( $hide_page, 'yes' ); ?> />
+		<label for="rtr_metabox_hide_page">Hide this page and subpages from menues</label>
+
 	</p>
 	<?php
 }
