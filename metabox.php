@@ -77,6 +77,8 @@ function rtr_metabox_renderer( $post ) {
  * @param int $post_id The saved post's ID, provided by WordPress.
  */
 function rtr_metabox_save( $post_id ) {
+	// Following check is courtesy of http://themefoundation.com/wordpress-meta-boxes-guide/:
+	// ------------------------------------------------------------------------------------------------------
 	// Checks save status
 	$is_autosave    = wp_is_post_autosave( $post_id );
 	$is_revision    = wp_is_post_revision( $post_id );
@@ -87,6 +89,7 @@ function rtr_metabox_save( $post_id ) {
 	if ( $is_autosave || $is_revision || ! $is_valid_nonce ) {
 		return;
 	}
+	// ------------------------------------------------------------------------------------------------------
 
 	// Update metabox data
 	if ( isset( $_POST['rtr_metabox_redirect_page'] ) ) {
