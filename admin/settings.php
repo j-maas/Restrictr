@@ -46,24 +46,33 @@ add_action( 'admin_menu', 'rtr_add_menu' );
  * Registers settings using the `Settings API`.
  *
  * @since 0.0.0
+ * @since 0.2.0 Registers multiple sections.
  */
 function rtr_settings_init() {
-	// Add section
+	// Add sections
 	add_settings_section(
-		'rtr_settings_section',
-		'Restrictr Settings',
-		'rtr_setting_section_renderer',
+		'rtr_settings_section_redirection',
+		'Redirection',
+		'rtr_setting_section_redirection_renderer',
+		'rtr_menu'
+	);
+
+	add_settings_section(
+		'rtr_settings_section_hiding',
+		'Hiding',
+		'rtr_setting_section_hiding_renderer',
 		'rtr_menu'
 	);
 
 	// Add settings
+	// Redirection
 	register_setting( 'rtr_settings', 'rtr_setting_redirect_enabled' );
 	add_settings_field(
 		'rtr_setting_redirect_enabled',
 		'Enable redirection',
 		'rtr_setting_redirect_enabled_renderer',
 		'rtr_menu',
-		'rtr_settings_section'
+		'rtr_settings_section_redirection'
 	);
 
 	register_setting( 'rtr_settings', 'rtr_setting_redirect_destination', 'rtr_setting_redirect_destination_validation' );
@@ -72,16 +81,33 @@ function rtr_settings_init() {
 		'Redirect to (URL)',
 		'rtr_setting_redirect_destination_renderer',
 		'rtr_menu',
-		'rtr_settings_section'
+		'rtr_settings_section_redirection'
 	);
 
+	add_settings_field(
+		'rtr_setting_field_redirected_pages',
+		'Redirected posts and pages',
+		'rtr_setting_field_redirected_pages_renderer',
+		'rtr_menu',
+		'rtr_settings_section_redirection'
+	);
+
+	// Hiding
 	register_setting( 'rtr_settings', 'rtr_setting_hiding_enabled' );
 	add_settings_field(
 		'rtr_setting_hiding_enabled',
 		'Enable hiding',
 		'rtr_setting_hiding_enabled_renderer',
 		'rtr_menu',
-		'rtr_settings_section'
+		'rtr_settings_section_hiding'
+	);
+
+	add_settings_field(
+		'rtr_setting_field_hidden_pages',
+		'Hidden posts and pages',
+		'rtr_setting_field_hidden_pages_renderer',
+		'rtr_menu',
+		'rtr_settings_section_hiding'
 	);
 }
 
@@ -169,6 +195,7 @@ function rtr_settings_page_renderer() {
 	<!--suppress HtmlUnknownTarget -->
 	<div class="wrap">
 		<form action="options.php" method="POST">
+			<h1>Restrictr Settings</h1>
 			<!-- Use Settings API to render settings -->
 			<?php settings_fields( 'rtr_settings' ); ?>
 			<?php do_settings_sections( 'rtr_menu' ); ?>
@@ -178,15 +205,30 @@ function rtr_settings_page_renderer() {
 	<?php
 }
 
+// Setting sections
+
 /**
- * Setting section renderer.
+ * Redirection setting section renderer.
  *
  * Renders an empty settings section.
  *
- * @since 0.0.0
+ * @since 0.2.0
  */
-function rtr_setting_section_renderer() {
+function rtr_setting_section_redirection_renderer() {
 }
+
+/**
+ * Redirection setting section renderer.
+ *
+ * Renders an empty settings section.
+ *
+ * @since 0.2.0
+ */
+function rtr_setting_section_hiding_renderer() {
+}
+
+// Setting fields
+// Abstract
 
 /**
  * Checkbox setting renderer.
@@ -206,6 +248,53 @@ function rtr_setting_checkbox_renderer( $setting_name, $description = '' ) {
 		echo "<label for='$setting_name' class='description'>$description</label>";
 	}
 }
+
+/**
+ * Metabox data list pages renderer.
+ *
+ * Renders a list of all posts and pages that are marked with certain metabox data.
+ *
+ * @since 0.2.0
+ *
+ * @param string $setting_name The name of the metabox data to search for.
+ * @param string $mark_name The metabox value which marks posts to select.
+ * @param string $nothing_text Message displayed when no posts are marked.
+ */
+function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_text ) {
+	$marked_pages = get_posts( array(
+		'meta_key'    => $setting_name,
+		'meta_value'  => $mark_name,
+		'post_type'   => 'any',
+		'orderby'     => array(
+			'post_type',
+			'post_title'
+		),
+		'numberposts' => - 1,
+	) );
+
+	if ( $marked_pages ):
+		?>
+		<table class="widefat striped">
+			<tr>
+				<th id="redirected-name"><span>Name</span></th>
+			</tr>
+			<?php foreach ( $marked_pages as $index => $page ): ?>
+				<tr>
+					<td>
+						<a href="<?php echo get_the_permalink( $page->ID ); ?>"><?php echo get_the_title( $page->ID ); ?></a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php
+	else:
+		?>
+		<span><?php echo $nothing_text; ?></span>
+		<?php
+	endif;
+}
+
+// Settings
 
 /**
  * Redirect enable setting's renderer.
@@ -233,6 +322,21 @@ function rtr_setting_redirect_destination_renderer() {
 }
 
 /**
+ * Redirected pages renderer.
+ *
+ * Renders a list of all posts and pages that have redirection enabled.
+ *
+ * @since 0.2.0
+ */
+function rtr_setting_field_redirected_pages_renderer() {
+	rtr_setting_meta_list_renderer(
+		'rtr_metabox_redirect_page',
+		'yes',
+		'No post or page is redirected.'
+	);
+}
+
+/**
  * Hiding enable setting's renderer.
  *
  * Renders a checkbox for the hiding enable setting.
@@ -241,4 +345,19 @@ function rtr_setting_redirect_destination_renderer() {
  */
 function rtr_setting_hiding_enabled_renderer() {
 	rtr_setting_checkbox_renderer( 'rtr_setting_hiding_enabled', 'If disabled, no page will be hidden.' );
+}
+
+/**
+ * Hidden pages renderer.
+ *
+ * Renders a list of all posts and pages that have hiding enabled.
+ *
+ * @since 0.2.0
+ */
+function rtr_setting_field_hidden_pages_renderer() {
+	rtr_setting_meta_list_renderer(
+		'rtr_metabox_hide_page',
+		'yes',
+		'No post or page is hidden.'
+	);
 }
