@@ -9,6 +9,10 @@
  * @since 0.4.0
  */
 
+function rtr_filter() {
+	return ! is_user_logged_in();
+}
+
 /**
  * Determines, if a functionality should be applied.
  * Does not allow functionality in admin.
@@ -18,7 +22,13 @@
  * @return bool
  */
 function rtr_is_functionality_applicable() {
-	return ! is_admin();
+	$filter_active = true;
+
+	if ( rtr_get_option( 'rtr_setting_filter_enabled' ) ) {
+		$filter_active = rtr_filter();
+	}
+
+	return ! is_admin() && $filter_active;
 }
 
 /**
@@ -40,4 +50,4 @@ function rtr_activate_functionality() {
 	}
 }
 
-rtr_activate_functionality();
+add_action( 'wp_loaded', 'rtr_activate_functionality' );

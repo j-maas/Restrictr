@@ -73,6 +73,13 @@ add_action( 'admin_menu', 'rtr_add_menu' );
 function rtr_settings_init() {
 	// Add sections
 	add_settings_section(
+		'rtr_settings_section_filter',
+		'Filter',
+		'rtr_setting_section_filter_renderer',
+		'rtr_menu'
+	);
+
+	add_settings_section(
 		'rtr_settings_section_redirection',
 		'Redirection',
 		'rtr_setting_section_redirection_renderer',
@@ -87,6 +94,16 @@ function rtr_settings_init() {
 	);
 
 	// Add settings
+	// Filter
+	register_setting( 'rtr_settings', 'rtr_setting_filter_enabled' );
+	add_settings_field(
+		'rtr_setting_filter_enabled',
+		'Enable filter',
+		'rtr_setting_filter_enabled_renderer',
+		'rtr_menu',
+		'rtr_settings_section_filter'
+	);
+
 	// Redirection
 	register_setting( 'rtr_settings', 'rtr_setting_redirect_enabled' );
 	add_settings_field(
@@ -157,6 +174,10 @@ function rtr_get_option( $option_name ) {
 	// Provide defaults
 	$default = null;
 	switch ( $option_name ) {
+		case 'rtr_setting_filter_enabled':
+			$default = 1;
+			break;
+
 		case 'rtr_setting_redirect_enabled':
 			$default = 1;
 			break;
@@ -228,6 +249,16 @@ function rtr_settings_page_renderer() {
 }
 
 // Setting sections
+/**
+ * Filter setting section renderer.
+ *
+ * Renders an a description for the settings section.
+ *
+ * @since 0.4.0
+ */
+function rtr_setting_section_filter_renderer() {
+	echo '<p>Use the hardcoded filter to control redirection and hiding.</p>';
+}
 
 /**
  * Redirection setting section renderer.
@@ -324,6 +355,16 @@ function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_tex
 }
 
 // Settings
+/**
+ * Filter enable setting's renderer.
+ *
+ * Renders a checkbox for the filter enable setting.
+ *
+ * @since 0.4.0
+ */
+function rtr_setting_filter_enabled_renderer() {
+	rtr_setting_checkbox_renderer( 'rtr_setting_filter_enabled', "If disabled, the filter won't be used." );
+}
 
 /**
  * Redirect enable setting's renderer.
