@@ -287,10 +287,8 @@ function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_tex
 		'meta_key'    => $setting_name,
 		'meta_value'  => $mark_name,
 		'post_type'   => 'any',
-		'orderby'     => array(
-			'post_type',
-			'post_title'
-		),
+		'orderby'     => 'post_title',
+		'order'       => 'ASC',
 		'numberposts' => - 1,
 	) );
 
@@ -299,7 +297,8 @@ function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_tex
 		<table class="widefat postlist striped">
 			<thead>
 			<tr>
-				<th scope="col" class="postlist-heading">Name</th>
+				<th scope="col" class="postlist-heading">Title</th>
+				<th scope="col" class="postlist-heading">Type</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -307,6 +306,10 @@ function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_tex
 				<tr class="postlist-item">
 					<td class="postlist-title">
 						<a href="<?php echo get_the_permalink( $page->ID ); ?>"><?php echo get_the_title( $page->ID ); ?></a>
+					</td>
+					<td class="postlist-type">
+						<?php $post_type = get_post_type_object( get_post_type( $page->ID ) );
+						echo $post_type->labels->singular_name; ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
