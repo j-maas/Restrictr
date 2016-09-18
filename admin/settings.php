@@ -274,22 +274,26 @@ function rtr_setting_meta_list_renderer( $setting_name, $mark_name, $nothing_tex
 
 	if ( $marked_pages ):
 		?>
-		<table class="widefat striped">
+		<table class="widefat postlist striped">
+			<thead>
 			<tr>
-				<th id="redirected-name"><span>Name</span></th>
+				<th scope="col" class="postlist-heading">Name</th>
 			</tr>
+			</thead>
+			<tbody>
 			<?php foreach ( $marked_pages as $index => $page ): ?>
-				<tr>
-					<td>
+				<tr class="postlist-item">
+					<td class="postlist-title">
 						<a href="<?php echo get_the_permalink( $page->ID ); ?>"><?php echo get_the_title( $page->ID ); ?></a>
 					</td>
 				</tr>
 			<?php endforeach; ?>
+			</tbody>
 		</table>
 		<?php
 	else:
 		?>
-		<span><?php echo $nothing_text; ?></span>
+		<span class="postlist-nothing"><?php echo $nothing_text; ?></span>
 		<?php
 	endif;
 }
