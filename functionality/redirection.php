@@ -9,6 +9,11 @@
  * @since 0.0.0
  */
 
+// Only apply functionality on frontend and if enabled and filters allow it.
+if ( rtr_is_applicable( 'rtr_setting_redirect_enabled' ) ) {
+	add_action( 'template_redirect', 'rtr_redirect' );
+}
+
 /**
  * Redirects marked posts and pages.
  *
@@ -27,8 +32,4 @@ function rtr_redirect() {
 	if ( $redirect_page ) {
 		wp_redirect( $redirect_destination );
 	}
-}
-
-if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) { // only redirect, if setting enabled
-	add_action( 'template_redirect', 'rtr_redirect' );
 }

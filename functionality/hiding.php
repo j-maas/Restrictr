@@ -9,7 +9,15 @@
  * @since 0.1.0
  */
 
-$hiding_enabled = rtr_get_option( 'rtr_setting_hiding_enabled' );
+// Only apply functionality on frontend and if enabled and filters allow it.
+if ( rtr_is_applicable( 'rtr_setting_hiding_enabled' ) ) {
+	add_filter( 'wp_get_nav_menu_items', 'rtr_hide_from_menu' );
+	add_filter( 'get_pages', 'rtr_remove_hidden_pages' );
+	add_filter( 'posts_where', 'rtr_filter_posts_query', 10, 2 );
+	add_filter( 'posts_join', 'rtr_join_meta', 10, 2 );
+	add_filter( 'option_sticky_posts', 'rtr_hide_sticky' );
+	add_filter( 'get_comment', 'rtr_hide_comments' );
+}
 
 /**
  * Hides menu items that point to hidden posts.
@@ -48,10 +56,6 @@ function rtr_hide_from_menu( $items ) {
 	return $items;
 }
 
-if ( ! is_admin() && $hiding_enabled ) { // only filter menus on frontend
-	add_filter( 'wp_get_nav_menu_items', 'rtr_hide_from_menu' );
-}
-
 /**
  * Removes pages that are marked as hidden from the array.
  * Uses recursive search for hiding child pages of hidden parent pages.
@@ -85,10 +89,6 @@ function rtr_remove_hidden_pages( $pages, $hidden_pages = array() ) {
 	return $pages;
 }
 
-if ( ! is_admin() && $hiding_enabled ) { // only filter menus on frontend and if hiding enabled
-	add_filter( 'get_pages', 'rtr_remove_hidden_pages' );
-}
-
 /**
  * Modifies the WHERE to only select non-hidden posts.
  *
@@ -105,10 +105,6 @@ function rtr_filter_posts_query( $where, $query ) {
 	}
 
 	return $where;
-}
-
-if ( ! is_admin() && $hiding_enabled ) {
-	add_filter( 'posts_where', 'rtr_filter_posts_query', 10, 2 );
 }
 
 /**
@@ -134,10 +130,6 @@ function rtr_join_meta( $join, $query ) {
 	return $join;
 }
 
-if ( ! is_admin() && $hiding_enabled ) {
-	add_filter( 'posts_join', 'rtr_join_meta', 10, 2 );
-}
-
 /**
  * Filters out the IDs of sticky posts that should be hidden.
  * Masks {@see get_option()} when used to get stickies.
@@ -158,10 +150,6 @@ function rtr_hide_sticky( $stickies ) {
 	}
 
 	return $stickies;
-}
-
-if ( ! is_admin() && $hiding_enabled ) {
-	add_filter( 'option_sticky_posts', 'rtr_hide_sticky' );
 }
 
 /**
@@ -191,8 +179,4 @@ function rtr_hide_comments( $comments ) {
 	}
 
 	return $comments;
-}
-
-if ( ! is_admin() && $hiding_enabled ) {
-	add_filter( 'get_comment', 'rtr_hide_comments' );
 }
