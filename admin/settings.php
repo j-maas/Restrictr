@@ -22,6 +22,25 @@ define( 'RTR_OPTION_GROUP', 'rtr_option_group' );
 // ------------------------------------------------------------------
 
 /**
+ * Registers the setting's CSS file.
+ */
+function rtr_register_settings_style() {
+	wp_register_style( 'rtr-settings-style', plugins_url( 'settings-style.css', __FILE__ ) );
+
+	// Improvement: Enqueue only when needed.
+	rtr_enqueue_settings_style();
+}
+
+add_action( 'admin_init', 'rtr_register_settings_style' );
+
+/**
+ * Enqueues the setting's CSS file.
+ */
+function rtr_enqueue_settings_style() {
+	wp_enqueue_style( 'rtr-settings-style' );
+}
+
+/**
  * Register custom settings menu.
  *
  * Registers a custom menu for the plugin's settings.
@@ -36,6 +55,9 @@ function rtr_add_menu() {
 		'rtr_menu',
 		'rtr_settings_page_renderer'
 	);
+
+	// Didn't load, therefore commented out.
+	// add_action( 'admin_print_styles-{$page_name}', 'rtr_enqueue_settings_style' );
 }
 
 add_action( 'admin_menu', 'rtr_add_menu' );
