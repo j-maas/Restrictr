@@ -9,8 +9,7 @@
  * @since 0.0.0
  */
 
-// Only apply functionality on frontend and if enabled and filters allow it.
-if ( rtr_is_applicable( 'rtr_setting_redirect_enabled' ) ) {
+function rtr_activate_redirection() {
 	add_action( 'template_redirect', 'rtr_redirect' );
 }
 

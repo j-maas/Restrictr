@@ -55,12 +55,6 @@ include( RTR_ADMIN_DIRECTORY . 'settings.php' );
 define( 'RTR_FUNCTIONALITY_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'functionality/' );
 
 /**
- * Provides filtering to control other functionality.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'filters.php' );
-
-/**
  * Provides redirection functionality.
  */
 /** @noinspection PhpIncludeInspection */
@@ -71,3 +65,9 @@ include( RTR_FUNCTIONALITY_DIRECTORY . 'redirection.php' );
  */
 /** @noinspection PhpIncludeInspection */
 include( RTR_FUNCTIONALITY_DIRECTORY . 'hiding.php' );
+
+/**
+ * Provides filtering to control other functionality.
+ */
+/** @noinspection PhpIncludeInspection */
+include( RTR_FUNCTIONALITY_DIRECTORY . 'filters.php' );

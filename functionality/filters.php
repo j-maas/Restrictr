@@ -11,14 +11,33 @@
 
 /**
  * Determines, if a functionality should be applied.
- * Does not allow functionality in admin and checks if the functionality is enabled by checking $setting_name.
+ * Does not allow functionality in admin.
  *
  * @since 0.4.0
  *
- * @param string $setting_name The functionality's enabling setting name.
- *
  * @return bool
  */
-function rtr_is_applicable( $setting_name ) {
-	return ! is_admin() && rtr_get_option( $setting_name );
+function rtr_is_functionality_applicable() {
+	return ! is_admin();
 }
+
+/**
+ * Activates redirection and hiding functionality, if applicable.
+ * Checks if each functionality is enabled.
+ *
+ * @since 0.4.0
+ */
+function rtr_activate_functionality() {
+	if ( rtr_is_functionality_applicable() ) {
+
+		if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) {
+			rtr_activate_redirection();
+		}
+
+		if ( rtr_get_option( 'rtr_setting_hiding_enabled' ) ) {
+			rtr_activate_hiding();
+		}
+	}
+}
+
+rtr_activate_functionality();

@@ -9,8 +9,12 @@
  * @since 0.1.0
  */
 
-// Only apply functionality on frontend and if enabled and filters allow it.
-if ( rtr_is_applicable( 'rtr_setting_hiding_enabled' ) ) {
+/**
+ * Adds all filters necessary for hiding functionality.
+ *
+ * @since 0.4.0
+ */
+function rtr_activate_hiding() {
 	add_filter( 'wp_get_nav_menu_items', 'rtr_hide_from_menu' );
 	add_filter( 'get_pages', 'rtr_remove_hidden_pages' );
 	add_filter( 'posts_where', 'rtr_filter_posts_query', 10, 2 );
