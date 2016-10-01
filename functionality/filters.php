@@ -9,6 +9,9 @@
  * @since 0.4.0
  */
 
+use restrictr\functionality\Hiding;
+use restrictr\functionality\Redirection;
+
 /**
  * Activates functionality, if determined true.
  *
@@ -46,11 +49,11 @@ function rtr_activate_functionality() {
 	if ( rtr_is_functionality_applicable() ) {
 
 		if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) {
-			\restrictr\functionality\Redirection::get_instance()->activate_redirection();
+			Redirection::get_instance()->activate();
 		}
 
 		if ( rtr_get_option( 'rtr_setting_hiding_enabled' ) ) {
-			rtr_activate_hiding();
+			Hiding::get_instance()->activate();
 		}
 	}
 }

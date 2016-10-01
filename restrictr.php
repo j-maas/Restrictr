@@ -64,7 +64,7 @@ include( RTR_FUNCTIONALITY_DIRECTORY . 'Redirection.php' );
  * Provides hiding functionality in menus.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'hiding.php' );
+include( RTR_FUNCTIONALITY_DIRECTORY . 'Hiding.php' );
 
 /**
  * Provides filtering to control other functionality.
