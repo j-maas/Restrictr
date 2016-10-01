@@ -72,7 +72,7 @@ class Metabox {
 	 */
 	function metabox_renderer( $post ) {
 		$redirect_page        = get_post_meta( $post->ID, 'rtr_metabox_redirect_page', true );
-		$redirect_destination = rtr_get_option( 'rtr_setting_redirect_destination' );
+		$redirect_destination = Settings::get_option( 'rtr_setting_redirect_destination' );
 
 		$hide_page = get_post_meta( $post->ID, 'rtr_metabox_hide_page', true );
 

@@ -11,6 +11,8 @@
 
 namespace restrictr\functionality;
 
+use restrictr\admin\Settings;
+
 class Filtering {
 
 	/**
@@ -44,11 +46,11 @@ class Filtering {
 	public function filter() {
 		if ( $this->is_filtering_applicable() ) {
 
-			if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) {
+			if ( Settings::get_option( 'rtr_setting_redirect_enabled' ) ) {
 				Redirection::get_instance()->activate();
 			}
 
-			if ( rtr_get_option( 'rtr_setting_hiding_enabled' ) ) {
+			if ( Settings::get_option( 'rtr_setting_hiding_enabled' ) ) {
 				Hiding::get_instance()->activate();
 			}
 		}
@@ -65,7 +67,7 @@ class Filtering {
 	private function is_filtering_applicable() {
 		$filter_active = true;
 
-		if ( rtr_get_option( 'rtr_setting_filter_enabled' ) ) {
+		if ( Settings::get_option( 'rtr_setting_filter_enabled' ) ) {
 			$filter_active = $this->is_filter_active();
 		}
 

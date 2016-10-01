@@ -45,7 +45,8 @@ restrictr\admin\Metabox::get_instance()->activate();
  * Provides settings to user.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_ADMIN_DIRECTORY . 'settings.php' );
+include( RTR_ADMIN_DIRECTORY . 'Settings.php' );
+restrictr\admin\Settings::get_instance()->activate();
 
 // ------------------------------------------------------------------
 // Include functionality
