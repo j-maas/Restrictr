@@ -38,7 +38,8 @@ define( 'RTR_ADMIN_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'admin/' );
  * Provides the metabox on pages.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_ADMIN_DIRECTORY . 'metabox.php' );
+include( RTR_ADMIN_DIRECTORY . 'Metabox.php' );
+restrictr\admin\Metabox::get_instance()->activate();
 
 /**
  * Provides settings to user.
