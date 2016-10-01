@@ -16,6 +16,14 @@ use restrictr\admin\Settings;
 class Redirection {
 
 	/**
+	 * Singleton: Disallow constructor.
+	 *
+	 * @since 0.5.0
+	 */
+	private function __construct() {
+	}
+
+	/**
 	 * Singleton method.
 	 * Returns or generates the singular instance of this class.
 	 *
