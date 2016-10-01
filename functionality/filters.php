@@ -46,7 +46,7 @@ function rtr_activate_functionality() {
 	if ( rtr_is_functionality_applicable() ) {
 
 		if ( rtr_get_option( 'rtr_setting_redirect_enabled' ) ) {
-			rtr_activate_redirection();
+			\restrictr\functionality\Redirection::get_instance()->activate_redirection();
 		}
 
 		if ( rtr_get_option( 'rtr_setting_hiding_enabled' ) ) {

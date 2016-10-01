@@ -58,7 +58,7 @@ define( 'RTR_FUNCTIONALITY_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'functionality/' )
  * Provides redirection functionality.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'redirection.php' );
+include( RTR_FUNCTIONALITY_DIRECTORY . 'Redirection.php' );
 
 /**
  * Provides hiding functionality in menus.
