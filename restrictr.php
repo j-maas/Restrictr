@@ -70,4 +70,5 @@ include( RTR_FUNCTIONALITY_DIRECTORY . 'Hiding.php' );
  * Provides filtering to control other functionality.
  */
 /** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'filters.php' );
+include( RTR_FUNCTIONALITY_DIRECTORY . 'Filtering.php' );
+\restrictr\functionality\Filtering::get_instance()->activate();
