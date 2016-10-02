@@ -56,9 +56,9 @@ class Hiding {
 
 	/**
 	 * Hides menu items that point to hidden posts.
+	 * Only hides a page, if the menu item's link is successfully converted to an ID.
 	 *
-	 * Only hides posts if {@see url_to_postid()} returns a post ID.
-	 *
+	 * @see \restrictr\functionality\url_to_postid()
 	 * @since 0.1.0
 	 *
 	 * @param array $items The menu items, provided by WordPress.
@@ -71,7 +71,7 @@ class Hiding {
 
 		foreach ( $items as $key => $menu_item ) {
 			// Improvement: Does not work on costum post type slug and blog page
-			$referenced_page_id = url_to_postid( $menu_item->url );
+			$referenced_page_id = $this->url_to_postid( $menu_item->url );
 
 			// Skip this $menu_item if possible
 			if ( $referenced_page_id == 0 ) { // if page referenced is external, it cannot have metabox data
@@ -89,6 +89,29 @@ class Hiding {
 		}
 
 		return $items;
+	}
+
+	/**
+	 * Wrapper. Converts URL to corresponding post id.
+	 * Extends {@see url_to_postid()} to also convert the blog's permalink.
+	 *
+	 * @see url_to_postid()
+	 * @since 0.5.0
+	 *
+	 * @param string $url The URL to convert.
+	 *
+	 * @return int Post ID, or 0 on failure.
+	 */
+	private function url_to_postid( $url ) {
+		$page_id = url_to_postid( $url );
+
+		// Check if blog
+		$blog_id = get_option( 'page_for_posts' );
+		if ( $url == get_permalink( $blog_id ) ) {
+			$page_id = $blog_id;
+		}
+
+		return $page_id;
 	}
 
 	/**
