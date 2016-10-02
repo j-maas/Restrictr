@@ -16,7 +16,28 @@ Version:     0.6.0
 Author:      Johannes Maas
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: restrictr
+Domain Path: /languages/
 */
+
+// ------------------------------------------------------------------
+// I18n
+// ------------------------------------------------------------------
+
+/**
+ * Loads the text domain.
+ *
+ * @since 0.6.0
+ */
+function load_restrictr_textdomain() {
+	load_plugin_textdomain( 'restrictr', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+
+add_action( 'plugins_loaded', 'load_restrictr_textdomain' );
+
+// ------------------------------------------------------------------
+// Constants
+// ------------------------------------------------------------------
 
 /**
  * Plugin's directory path.
