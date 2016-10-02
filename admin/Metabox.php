@@ -60,7 +60,7 @@ class Metabox {
 	function add_metabox() {
 		add_meta_box(
 			'rtr_metabox',
-			'Restrictr Settings',
+			__( 'Restrictr Settings', 'restrictr' ),
 			array( $this, 'metabox_renderer' ),
 			'',
 			'normal',
@@ -90,16 +90,23 @@ class Metabox {
 		<p>
 			<input type="checkbox" id="rtr_metabox_redirect_page" name="rtr_metabox_redirect_page"
 			       value="yes" <?php checked( $redirect_page, 'yes' ); ?> />
-			<label for="rtr_metabox_redirect_page">Redirect this page
-				(to <a href="<?php echo $redirect_destination ?>"
-				       style="word-wrap: break-word"><?php echo $redirect_destination ?></a>)</label>
+			<label for="rtr_metabox_redirect_page">
+				<?php
+				printf(
+				/* translators: 1: Link to redirect destination */
+					__( 'Redirect this page (to %s)', 'restrictr' ),
+					'<a href="' . $redirect_destination . '" style="word-wrap: break-word">' . $redirect_destination . '</a>'
+				); ?>
+			</label>
 		</p>
 
 		<!-- Hide checkbox -->
 		<p>
 			<input type="checkbox" id="rtr_metabox_hide_page" name="rtr_metabox_hide_page"
 			       value="yes" <?php checked( $hide_page, 'yes' ); ?> />
-			<label for="rtr_metabox_hide_page">Hide this page and subpages from menus</label>
+			<label for="rtr_metabox_hide_page">
+				<?php _e( 'Hide this page and subpages from menus', 'restrictr' ); ?>
+			</label>
 
 		</p>
 		<?php

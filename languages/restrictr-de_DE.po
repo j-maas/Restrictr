@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Restrictr v0.5.0\n"
-"POT-Creation-Date: 2016-10-02 16:50+0200\n"
-"PO-Revision-Date: 2016-10-02 16:55+0200\n"
+"POT-Creation-Date: 2016-10-02 17:04+0200\n"
+"PO-Revision-Date: 2016-10-02 17:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -15,9 +15,18 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;_n;_n_noop;_nx\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/Settings.php:93 admin/Settings.php:283
+#: admin/Metabox.php:63 admin/Settings.php:93 admin/Settings.php:283
 msgid "Restrictr Settings"
 msgstr "Restrictr Einstellungen"
+
+#: admin/Metabox.php:97
+#, php-format
+msgid "Redirect this page (to %s)"
+msgstr "Diese Seite weiterleiten (nach %s)"
+
+#: admin/Metabox.php:108
+msgid "Hide this page and subpages from menus"
+msgstr "Diese Seite und ihre Unterseiten in Menüs verstecken."
 
 #: admin/Settings.php:94
 msgid "Restrictr"
