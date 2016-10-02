@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Restrictr v0.5.0\n"
+"POT-Creation-Date: 2016-10-02 16:50+0200\n"
+"PO-Revision-Date: 2016-10-02 16:55+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x;_n;_n_noop;_nx\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/Settings.php:93 admin/Settings.php:283
+msgid "Restrictr Settings"
+msgstr "Restrictr Einstellungen"
+
+#: admin/Settings.php:94
+msgid "Restrictr"
+msgstr "Restrictr"
+
+#: admin/Settings.php:117
+msgid "Filter"
+msgstr "Filter"
+
+#: admin/Settings.php:124
+msgid "Redirection"
+msgstr "Weiterleitung"
+
+#: admin/Settings.php:131
+msgid "Hiding"
+msgstr "Verstecken"
+
+#: admin/Settings.php:141 admin/Settings.php:151 admin/Settings.php:181
+msgid "Global enable"
+msgstr "Global aktivieren"
+
+#: admin/Settings.php:163
+msgid "Redirect to (URL)"
+msgstr "Weiterleiten nach (URL)"
+
+#: admin/Settings.php:171
+msgid "Redirected posts and pages"
+msgstr "Weitergeleitete Beiträge und Seiten"
+
+#: admin/Settings.php:189
+msgid "Hidden posts and pages"
+msgstr "Versteckte Beiträge und Seiten"
+
+#: admin/Settings.php:220
+msgid ""
+"The entered URL was not valid. The previous URL has been re-established."
+msgstr ""
+"Die eingegebene URL war nicht gültig. Die vorherige URL wurde "
+"wiederhergestellt."
+
+#: admin/Settings.php:302
+msgid "Use the hardcoded filter to control redirection and hiding."
+msgstr ""
+"Den fest einprogrammierten Filter verwenden, um Weiterleitung und Verstecken "
+"zu kontrollieren."
+
+#: admin/Settings.php:338
+msgid "Enable filtering"
+msgstr "Filtern aktivieren"
+
+#: admin/Settings.php:339
+msgid "If disabled, redirection and hiding will always take place."
+msgstr "Wenn deaktiviert, sind Weiterleitung und Verstecken immer aktiv."
+
+#: admin/Settings.php:379
+msgid "Redirect marked pages"
+msgstr "Markierte Seiten weiterleiten"
+
+#: admin/Settings.php:395
+msgid "If redirection is enabled on a page, it will be redirected to this URL."
+msgstr ""
+"Ist die Weiterleitung auf einer Seite aktiviert, wird sie zu dieser URL "
+"weitergeleitet."
+
+#: admin/Settings.php:410
+msgid "No post or page is redirected."
+msgstr "Kein Beitrag und keine Seite werden weitergeleitet."
+
+#: admin/Settings.php:440
+msgid "Title"
+msgstr "Titel"
+
+#: admin/Settings.php:441
+msgid "Type"
+msgstr "Typ"
+
+#: admin/Settings.php:476
+msgid "Hide marked pages"
+msgstr "Markierte Seiten verstecken"
+
+#: admin/Settings.php:491
+msgid "No post or page is hidden."
+msgstr "Kein Beitrag und keine Seite wird versteckt."

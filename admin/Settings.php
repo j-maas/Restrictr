@@ -90,8 +90,8 @@ class Settings {
 	 */
 	function add_menu() {
 		add_options_page(
-			'Restrictr Settings',
-			'Restrictr',
+			__( 'Restrictr Settings', 'restrictr' ),
+			__( 'Restrictr', 'restrictr' ),
 			'manage_options',
 			'rtr_menu',
 			array( $this, 'settings_page_renderer' )
@@ -114,21 +114,21 @@ class Settings {
 		// Add sections
 		add_settings_section(
 			'rtr_settings_section_filter',
-			'Filter',
+			__( 'Filter', 'restrictr' ),
 			array( $this, 'setting_section_filter_renderer' ),
 			'rtr_menu'
 		);
 
 		add_settings_section(
 			'rtr_settings_section_redirection',
-			'Redirection',
+			__( 'Redirection', 'restrictr' ),
 			array( $this, 'setting_section_redirection_renderer' ),
 			'rtr_menu'
 		);
 
 		add_settings_section(
 			'rtr_settings_section_hiding',
-			'Hiding',
+			__( 'Hiding', 'restrictr' ),
 			array( $this, 'setting_section_hiding_renderer' ),
 			'rtr_menu'
 		);
@@ -138,7 +138,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_filter_enabled' );
 		add_settings_field(
 			'rtr_setting_filter_enabled',
-			'Global enable',
+			__( 'Global enable', 'restrictr' ),
 			array( $this, 'setting_filter_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_filter'
@@ -148,7 +148,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_redirect_enabled' );
 		add_settings_field(
 			'rtr_setting_redirect_enabled',
-			'Global enable',
+			__( 'Global enable', 'restrictr' ),
 			array( $this, 'setting_redirect_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_redirection'
@@ -160,7 +160,7 @@ class Settings {
 		) );
 		add_settings_field(
 			'rtr_setting_redirect_destination',
-			'Redirect to (URL)',
+			__( 'Redirect to (URL)', 'restrictr' ),
 			array( $this, 'setting_redirect_destination_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_redirection'
@@ -168,7 +168,7 @@ class Settings {
 
 		add_settings_field(
 			'rtr_setting_field_redirected_pages',
-			'Redirected posts and pages',
+			__( 'Redirected posts and pages', 'restrictr' ),
 			array( $this, 'setting_field_redirected_pages_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_redirection'
@@ -178,7 +178,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_hiding_enabled' );
 		add_settings_field(
 			'rtr_setting_hiding_enabled',
-			'Global enable',
+			__( 'Global enable', 'restrictr' ),
 			array( $this, 'setting_hiding_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_hiding'
@@ -186,7 +186,7 @@ class Settings {
 
 		add_settings_field(
 			'rtr_setting_field_hidden_pages',
-			'Hidden posts and pages',
+			__( 'Hidden posts and pages', 'restrictr' ),
 			array( $this, 'setting_field_hidden_pages_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_hiding'
@@ -217,7 +217,7 @@ class Settings {
 			add_settings_error(
 				'rtr_setting_redirect_destination',
 				'rtr_error_invalid_url',
-				'The entered URL was not valid. The previous URL has been re-established.'
+				__( 'The entered URL was not valid. The previous URL has been re-established.', 'restrictr' )
 			);
 		} else {
 			$output = $destination;
@@ -280,7 +280,7 @@ class Settings {
 		<!--suppress HtmlUnknownTarget -->
 		<div class="wrap">
 			<form action="options.php" method="POST">
-				<h1>Restrictr Settings</h1>
+				<h1><?php _e( 'Restrictr Settings', 'restrictr' ); ?></h1>
 				<!-- Use Settings API to render settings -->
 				<?php settings_fields( 'rtr_settings' ); ?>
 				<?php do_settings_sections( 'rtr_menu' ); ?>
@@ -299,7 +299,7 @@ class Settings {
 	 * @since 0.4.0
 	 */
 	function setting_section_filter_renderer() {
-		echo '<p>Use the hardcoded filter to control redirection and hiding.</p>';
+		echo '<p>' . __( 'Use the hardcoded filter to control redirection and hiding.', 'restrictr' ) . '</p>';
 	}
 
 	/**
@@ -333,7 +333,11 @@ class Settings {
 	 * @since 0.4.0
 	 */
 	function setting_filter_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_filter_enabled', 'Enable filtering', 'If disabled, redirection and hiding will always take place.' );
+		$this->setting_checkbox_renderer(
+			'rtr_setting_filter_enabled',
+			__( 'Enable filtering', 'restrictr' ),
+			__( 'If disabled, redirection and hiding will always take place.', 'restrictr' )
+		);
 	}
 
 	/**
@@ -370,7 +374,10 @@ class Settings {
 	 * @since 0.2.0
 	 */
 	function setting_redirect_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_redirect_enabled', 'Redirect marked pages' );
+		$this->setting_checkbox_renderer(
+			'rtr_setting_redirect_enabled',
+			__( 'Redirect marked pages', 'restrictr' )
+		);
 	}
 
 	/**
@@ -384,7 +391,9 @@ class Settings {
 		$setting = esc_attr( $this->get_option( 'rtr_setting_redirect_destination' ) );
 		echo "<input type='url' name='rtr_setting_redirect_destination' id='rtr_setting_redirect_destination'
  				value='$setting' class='regular-text code' />
- 			<p class='description'>If redirection is enabled on a page, it will be redirected to this URL.</p>";
+ 			<p class='description'>"
+		     . __( 'If redirection is enabled on a page, it will be redirected to this URL.', 'restrictr' )
+		     . '</p>';
 	}
 
 	/**
@@ -398,7 +407,7 @@ class Settings {
 		$this->setting_meta_list_renderer(
 			'rtr_metabox_redirect_page',
 			'yes',
-			'No post or page is redirected.'
+			__( 'No post or page is redirected.', 'restrictr' )
 		);
 	}
 
@@ -428,8 +437,8 @@ class Settings {
 			<table class="widefat postlist striped">
 				<thead>
 				<tr>
-					<th scope="col" class="postlist-heading">Title</th>
-					<th scope="col" class="postlist-heading">Type</th>
+					<th scope="col" class="postlist-heading"><?php _e( 'Title', 'restrictr' ); ?></th>
+					<th scope="col" class="postlist-heading"><?php _e( 'Type', 'restrictr' ); ?></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -462,7 +471,10 @@ class Settings {
 	 * @since 0.2.0
 	 */
 	function setting_hiding_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_hiding_enabled', 'Hide marked pages' );
+		$this->setting_checkbox_renderer(
+			'rtr_setting_hiding_enabled',
+			__( 'Hide marked pages', 'restrictr' )
+		);
 	}
 
 	/**
@@ -476,7 +488,7 @@ class Settings {
 		$this->setting_meta_list_renderer(
 			'rtr_metabox_hide_page',
 			'yes',
-			'No post or page is hidden.'
+			__( 'No post or page is hidden.', 'restrictr' )
 		);
 	}
 }
