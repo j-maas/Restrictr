@@ -61,7 +61,7 @@ class Metabox {
 		add_meta_box(
 			'rtr_metabox',
 			'Restrictr Settings',
-			'metabox_renderer',
+			array( $this, 'metabox_renderer' ),
 			'',
 			'normal',
 			'default'
