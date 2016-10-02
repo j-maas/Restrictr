@@ -138,7 +138,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_filter_enabled' );
 		add_settings_field(
 			'rtr_setting_filter_enabled',
-			'Enable filter',
+			'Global enable',
 			array( $this, 'setting_filter_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_filter'
@@ -148,7 +148,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_redirect_enabled' );
 		add_settings_field(
 			'rtr_setting_redirect_enabled',
-			'Enable redirection',
+			'Global enable',
 			array( $this, 'setting_redirect_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_redirection'
@@ -178,7 +178,7 @@ class Settings {
 		register_setting( 'rtr_settings', 'rtr_setting_hiding_enabled' );
 		add_settings_field(
 			'rtr_setting_hiding_enabled',
-			'Enable hiding',
+			'Global enable',
 			array( $this, 'setting_hiding_enabled_renderer' ),
 			'rtr_menu',
 			'rtr_settings_section_hiding'
@@ -333,7 +333,7 @@ class Settings {
 	 * @since 0.4.0
 	 */
 	function setting_filter_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_filter_enabled', "If disabled, the filter won't be used." );
+		$this->setting_checkbox_renderer( 'rtr_setting_filter_enabled', 'Enable filtering', 'If disabled, redirection and hiding will always take place.' );
 	}
 
 	/**
@@ -343,8 +343,9 @@ class Settings {
 	 *
 	 * @param string $setting_name The name of the corresponding setting.
 	 * @param string $description Optional. The description to output as a label for the checkbox.
+	 * @param string $explanation Optional. Further explanation to display beneath the checkbox.
 	 */
-	function setting_checkbox_renderer( $setting_name, $description = '' ) {
+	function setting_checkbox_renderer( $setting_name, $description = '', $explanation = '' ) {
 		$setting = $this->get_option( $setting_name );
 
 		echo "<input type='checkbox' name='$setting_name' id='$setting_name'
@@ -352,6 +353,10 @@ class Settings {
 
 		if ( $description ) {
 			echo "<label for='$setting_name' class='description'>$description</label>";
+		}
+
+		if ( $explanation ) {
+			echo "<p class='description'>$explanation</p>";
 		}
 	}
 
@@ -365,7 +370,7 @@ class Settings {
 	 * @since 0.2.0
 	 */
 	function setting_redirect_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_redirect_enabled', 'If disabled, no page will be redirected.' );
+		$this->setting_checkbox_renderer( 'rtr_setting_redirect_enabled', 'Redirect marked pages' );
 	}
 
 	/**
@@ -457,7 +462,7 @@ class Settings {
 	 * @since 0.2.0
 	 */
 	function setting_hiding_enabled_renderer() {
-		$this->setting_checkbox_renderer( 'rtr_setting_hiding_enabled', 'If disabled, no page will be hidden.' );
+		$this->setting_checkbox_renderer( 'rtr_setting_hiding_enabled', 'Hide marked pages' );
 	}
 
 	/**
