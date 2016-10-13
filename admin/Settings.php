@@ -48,8 +48,7 @@ class Settings {
 	}
 
 	/**
-	 * Activates
-	 * Adds all filters necessary for hiding functionality.
+	 * Registers necessary hooks.
 	 *
 	 * @since 0.5.0
 	 */
