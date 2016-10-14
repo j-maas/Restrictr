@@ -23,7 +23,6 @@ Domain Path: /languages/
 // ------------------------------------------------------------------
 // I18n
 // ------------------------------------------------------------------
-
 /**
  * Loads the text domain.
  *
@@ -36,62 +35,72 @@ function load_restrictr_textdomain() {
 add_action( 'plugins_loaded', 'load_restrictr_textdomain' );
 
 // ------------------------------------------------------------------
-// Constants
+// Autoload classes
 // ------------------------------------------------------------------
+include( 'Psr4AutoloaderClass.php' );
 
-/**
- * Plugin's directory path.
- *
- * @since 0.0.0
- * @var string RTR_PLUGIN_DIRECTORY Path to the plugin's base directory.
- */
-define( 'RTR_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ) );
+$loader = new \restrictr\Psr4AutoloaderClass();
+$loader->addNamespace('restrictr', dirname(__FILE__) . 'src');
+$loader->register();
 
-// ------------------------------------------------------------------
-// Include admin screen
-// ------------------------------------------------------------------
-/**
- * Path to admin directory.
- */
-define( 'RTR_ADMIN_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'admin/' );
-
-/**
- * Provides the metabox on pages.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_ADMIN_DIRECTORY . 'Metabox.php' );
-restrictr\admin\Metabox::get_instance()->activate();
-
-/**
- * Provides settings to user.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_ADMIN_DIRECTORY . 'Settings.php' );
-restrictr\admin\Settings::get_instance()->activate();
-
-// ------------------------------------------------------------------
-// Include functionality
-// ------------------------------------------------------------------
-/**
- * Path to functionality directory.
- */
-define( 'RTR_FUNCTIONALITY_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'functionality/' );
-
-/**
- * Provides redirection functionality.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'Redirection.php' );
-
-/**
- * Provides hiding functionality in menus.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'Hiding.php' );
-
-/**
- * Provides filtering to control other functionality.
- */
-/** @noinspection PhpIncludeInspection */
-include( RTR_FUNCTIONALITY_DIRECTORY . 'Filtering.php' );
-\restrictr\functionality\Filtering::get_instance()->activate();
+//// ------------------------------------------------------------------
+//// Constants
+//// ------------------------------------------------------------------
+//
+///**
+// * Plugin's directory path.
+// *
+// * @since 0.0.0
+// * @var string RTR_PLUGIN_DIRECTORY Path to the plugin's base directory.
+// */
+//define( 'RTR_PLUGIN_DIRECTORY', plugin_dir_path( __FILE__ ) );
+//
+//// ------------------------------------------------------------------
+//// Include admin screen
+//// ------------------------------------------------------------------
+///**
+// * Path to admin directory.
+// */
+//define( 'RTR_ADMIN_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'admin/' );
+//
+///**
+// * Provides the metabox on pages.
+// */
+///** @noinspection PhpIncludeInspection */
+//include( RTR_ADMIN_DIRECTORY . 'Metabox.php' );
+//restrictr\admin\Metabox::get_instance()->activate();
+//
+///**
+// * Provides settings to user.
+// */
+///** @noinspection PhpIncludeInspection */
+//include( RTR_ADMIN_DIRECTORY . 'Settings.php' );
+//restrictr\admin\Settings::get_instance()->activate();
+//
+//// ------------------------------------------------------------------
+//// Include functionality
+//// ------------------------------------------------------------------
+//
+///**
+// * Path to functionality directory.
+// */
+//define( 'RTR_FUNCTIONALITY_DIRECTORY', RTR_PLUGIN_DIRECTORY . 'functionality/' );
+//
+///**
+// * Provides redirection functionality.
+// */
+///** @noinspection PhpIncludeInspection */
+//include( RTR_FUNCTIONALITY_DIRECTORY . 'Redirection.php' );
+//
+///**
+// * Provides hiding functionality in menus.
+// */
+///** @noinspection PhpIncludeInspection */
+//include( RTR_FUNCTIONALITY_DIRECTORY . 'Hiding.php' );
+//
+///**
+// * Provides filtering to control other functionality.
+// */
+///** @noinspection PhpIncludeInspection */
+//include( RTR_FUNCTIONALITY_DIRECTORY . 'Filtering.php' );
+//\restrictr\functionality\Filtering::get_instance()->activate();
