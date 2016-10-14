@@ -19,6 +19,7 @@ class Hiding {
 	 * @since 0.5.0
 	 */
 	private function __construct() {
+		$this->activate();
 	}
 
 	/**
