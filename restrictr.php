@@ -37,10 +37,10 @@ add_action( 'plugins_loaded', 'load_restrictr_textdomain' );
 // ------------------------------------------------------------------
 // Autoload classes
 // ------------------------------------------------------------------
-include( 'Psr4AutoloaderClass.php' );
+include( 'src/Psr4AutoloaderClass.php' );
 
 $loader = new \restrictr\Psr4AutoloaderClass();
-$loader->addNamespace('restrictr', dirname(__FILE__) . 'src');
+$loader->addNamespace('restrictr', dirname(__FILE__) . '/src');
 $loader->register();
 
 //// ------------------------------------------------------------------
