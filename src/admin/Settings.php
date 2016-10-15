@@ -11,8 +11,6 @@
 
 namespace restrictr\admin;
 
-error_log( 'Settings included.' );
-
 class Settings {
 
 	/**
@@ -29,7 +27,6 @@ class Settings {
 	 * @since 0.5.0
 	 */
 	private function __construct() {
-		error_log( 'Settings class loaded.' );
 		$this->activate();
 	}
 

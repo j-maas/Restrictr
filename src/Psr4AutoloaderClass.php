@@ -11,8 +11,6 @@
 
 namespace restrictr;
 
-error_log( 'Psr4AutoloaderClass included.' );
-
 /**
  * Courtesy of https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md#class-example.
  *
