@@ -31,8 +31,6 @@ class Hiding {
 	public function activate() {
 		add_filter( 'wp_get_nav_menu_items', array( $this, 'hide_from_menu' ) );
 		add_filter( 'get_pages', array( $this, 'remove_hidden_pages' ) );
-		//add_filter( 'posts_where', array( $this, 'filter_posts_query' ), 10, 2 );
-		//add_filter( 'posts_join', array( $this, 'join_meta' ), 10, 2 );
 		add_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
 		add_filter( 'option_sticky_posts', array( $this, 'hide_sticky' ) );
 		add_filter( 'get_comment', array( $this, 'hide_comments' ) );
@@ -72,7 +70,7 @@ class Hiding {
 		$hidden_posts = array();
 
 		foreach ( $items as $key => $menu_item ) {
-			// Improvement: Does not work on costum post type slug and blog page
+			// Improvement: Does not work on costum post type slug
 			$referenced_page_id = $this->url_to_postid( $menu_item->url );
 
 			// Skip this $menu_item if possible
@@ -150,47 +148,10 @@ class Hiding {
 	}
 
 	/**
-	 * Modifies the WHERE to only select non-hidden posts.
+	 * Excludes posts that are marked as hidden from the query.
 	 *
-	 * @since 0.3.0
+	 * @since 0.6.1
 	 *
-	 * @param string $where The current WHERE argument.
-	 * @param \WP_Query $query The query object to be used.
-	 *
-	 * @return string The modified WHERE, if applicable.
-	 */
-	public function filter_posts_query( $where, $query ) {
-		if ( ! $query->is_singular() ) {
-			$where .= " AND (wp_postmeta.meta_key IS NULL OR (wp_postmeta.meta_key = 'rtr_metabox_hide_page' AND wp_postmeta.meta_value = ''))";
-		}
-
-		return $where;
-	}
-
-	/**
-	 * Modifies the JOIN to include metabox data.
-	 *
-	 * @since 0.3.0
-	 *
-	 * @param string $join The current JOIN argument.
-	 * @param \WP_Query $query The query object to be used.
-	 *
-	 * @return string The modified JOIN, if applicable.
-	 */
-	public function join_meta( $join, $query ) {
-		if ( ! $join ) {
-			$join = '';
-		}
-
-
-		if ( ! $query->is_singular() ) {
-			$join .= " LEFT JOIN wp_postmeta ON wp_postmeta.post_id = wp_posts.ID AND wp_postmeta.meta_key = 'rtr_metabox_hide_page'";
-		}
-
-		return $join;
-	}
-
-	/**
 	 * @param \WP_Query $query
 	 */
 	public function exclude_hidden_from_query( $query ) {
@@ -209,28 +170,13 @@ class Hiding {
 		$existing_meta_query = $query->get( 'meta_query', null );
 		if ( ! isset( $existing_meta_query ) ) {
 			$query->set( 'meta_query', $meta_query_vars );
-			$query->set( 'orderby', 'date' );
-			$query->set( 'order', 'DESC' );
-			error_log( 'no meta existed' );
 		} else {
 			$query->set( 'meta_query', array(
 					$existing_meta_query,
 					$meta_query_vars,
 				)
 			);
-
-			error_log( 'meta did exist' );
 		}
-
-
-		remove_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
-		$my_post = $query->get_posts();
-		$output  = '';
-		foreach ( $my_post as $post ) {
-			$output .= ' | ' . $post->post_title;
-		}
-		error_log( $output );
-		add_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
 	}
 
 	/**
