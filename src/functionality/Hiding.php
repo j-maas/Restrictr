@@ -23,6 +23,22 @@ class Hiding {
 	}
 
 	/**
+	 * Activates hiding functionality.
+	 * Adds all filters necessary for hiding functionality.
+	 *
+	 * @since 0.4.0
+	 */
+	public function activate() {
+		add_filter( 'wp_get_nav_menu_items', array( $this, 'hide_from_menu' ) );
+		add_filter( 'get_pages', array( $this, 'remove_hidden_pages' ) );
+		//add_filter( 'posts_where', array( $this, 'filter_posts_query' ), 10, 2 );
+		//add_filter( 'posts_join', array( $this, 'join_meta' ), 10, 2 );
+		add_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
+		add_filter( 'option_sticky_posts', array( $this, 'hide_sticky' ) );
+		add_filter( 'get_comment', array( $this, 'hide_comments' ) );
+	}
+
+	/**
 	 * Singleton method.
 	 * Returns or generates the singular instance of this class.
 	 *
@@ -38,22 +54,6 @@ class Hiding {
 		}
 
 		return $instance;
-	}
-
-	/**
-	 * Activates hiding functionality.
-	 * Adds all filters necessary for hiding functionality.
-	 *
-	 * @since 0.4.0
-	 */
-	public function activate() {
-		//add_filter( 'wp_get_nav_menu_items', array( $this, 'hide_from_menu' ) );
-		//add_filter( 'get_pages', array( $this, 'remove_hidden_pages' ) );
-		//add_filter( 'posts_where', array( $this, 'filter_posts_query' ), 10, 2 );
-		//add_filter( 'posts_join', array( $this, 'join_meta' ), 10, 2 );
-		add_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
-		//add_filter( 'option_sticky_posts', array( $this, 'hide_sticky' ) );
-		//add_filter( 'get_comment', array( $this, 'hide_comments' ) );
 	}
 
 	/**
@@ -194,7 +194,6 @@ class Hiding {
 	 * @param \WP_Query $query
 	 */
 	public function exclude_hidden_from_query( $query ) {
-		error_log('hiding --------------------------------------------------------------');
 		$meta_query_vars = array(
 			'relation' => 'OR',
 			array(
@@ -210,16 +209,28 @@ class Hiding {
 		$existing_meta_query = $query->get( 'meta_query', null );
 		if ( ! isset( $existing_meta_query ) ) {
 			$query->set( 'meta_query', $meta_query_vars );
-			$query->set('orderby', 'date');
-			$query->set('order', 'DESC');
+			$query->set( 'orderby', 'date' );
+			$query->set( 'order', 'DESC' );
+			error_log( 'no meta existed' );
 		} else {
 			$query->set( 'meta_query', array(
-						$existing_meta_query,
-						$meta_query_vars,
-					)
+					$existing_meta_query,
+					$meta_query_vars,
+				)
 			);
+
+			error_log( 'meta did exist' );
 		}
-		error_log(print_r($query, true));
+
+
+		remove_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
+		$my_post = $query->get_posts();
+		$output  = '';
+		foreach ( $my_post as $post ) {
+			$output .= ' | ' . $post->post_title;
+		}
+		error_log( $output );
+		add_action( 'pre_get_posts', array( $this, 'exclude_hidden_from_query' ) );
 	}
 
 	/**
