@@ -197,11 +197,11 @@ class Hiding {
 		$meta_query_vars = array(
 			'relation' => 'OR',
 			array(
-				'key'     => 'rtr_metabox_hidden_page',
+				'key'     => 'rtr_metabox_hide_page',
 				'compare' => 'NOT EXISTS',
 			),
 			array(
-				'key'   => 'rtr_metabox_hidden_page',
+				'key'   => 'rtr_metabox_hide_page',
 				'value' => '',
 			),
 		);
