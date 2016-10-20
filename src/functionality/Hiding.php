@@ -155,6 +155,11 @@ class Hiding {
 	 * @param \WP_Query $query
 	 */
 	public function exclude_hidden_from_query( $query ) {
+		// Don't filter single posts
+		if ( $query->is_singular() ) {
+			return;
+		}
+
 		$meta_query_vars = array(
 			'relation' => 'OR',
 			array(
