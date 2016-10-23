@@ -14,8 +14,8 @@ Plugin Name: Restrictr
 Description: Restrict and hide pages under custom conditions
 Version:     0.6.1
 Author:      Johannes Maas
-License:     GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License:     GPL3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: restrictr
 Domain Path: /languages/
 */
